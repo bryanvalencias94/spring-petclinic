@@ -20,10 +20,8 @@ phases:
     commands:
       - echo Build phase...
       - echo Compile and running tests using Gradle Wrapper...
-      - docker ps
-      - docker build -t example .
       - chmod +x gradlew
-      - ./gradlew build
+      - ./gradlew build -x test
       - echo Build Docker image and tag it...
       - docker build -t bryanvalencia94/petclinic:$CODEBUILD_BUILD_NUMBER .
   post_build:
