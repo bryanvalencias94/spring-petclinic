@@ -3,16 +3,25 @@ version: 0.2
 phases:
   install:
     runtime-versions:
-      java: corretto17
+      java: corretto11
+    commands:
+      - echo Entered the install phase...
+      - echo Check java version...
+      - java -version
   pre_build:
     commands:
-      - echo Pre-build phase...
-      - echo Compile and running tests using Gradle Wrapper...
-      - chmod +x gradlew
-      - ./gradlew build
+      - echo Entered the pre_build phase...
+      - echo Check other java versions...
+      - update-alternatives --config java
+      - echo Change to Java 17
+      - export JAVA_HOME=/usr/lib/jvm/java-17-openjdk-amd64
+      - java -version
   build:
     commands:
       - echo Build phase...
+      - echo Compile and running tests using Gradle Wrapper...
+      - chmod +x gradlew
+      - ./gradlew build
       - echo Build Docker image and tag it...
       - docker build -t bryanvalencia94/petclinic:$CODEBUILD_BUILD_NUMBER .
   post_build:
