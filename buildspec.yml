@@ -20,7 +20,8 @@ phases:
     commands:
       - echo Build phase...
       - echo Compile and running tests using Gradle Wrapper...
-      - service docker start
+      - docker ps
+      - docker build -t example .
       - chmod +x gradlew
       - ./gradlew build
       - echo Build Docker image and tag it...
