@@ -22,11 +22,44 @@ Resources:
           ToPort: 80
           CidrIp: 0.0.0.0/0
 
-  LaunchConfigurationPetClinic2:
+  EC2RolePetClinic:
+    Type: AWS::IAM::Role
+    Properties:
+      AssumeRolePolicyDocument:
+        Version: 2012-10-17
+        Statement:
+          - Effect: Allow
+            Principal:
+              AWS: "*"
+            Action: sts:AssumeRole
+      Policies:
+        - PolicyName: MyPolicy
+          PolicyDocument:
+            Version: 2012-10-17
+            Statement:
+              - Effect: Allow
+                Action:
+                  - 's3:Get*'
+                  - 's3:List*'
+                Resource: '*'
+              - Effect: Allow
+                Action:
+                  - 'codedeploy:*'
+                Resource: '*'
+
+  InstanceProfilePetClinic:
+    Type: AWS::IAM::InstanceProfile
+    Properties:
+      Path: "/"
+      Roles:
+        - Ref: EC2RolePetClinic
+
+  LaunchConfigurationPetClinic3:
     Type: "AWS::AutoScaling::LaunchConfiguration"
     Properties:
       ImageId: "ami-04c97e62cb19d53f1"
       InstanceType: "t4g.small"
+      IamInstanceProfile: !Ref InstanceProfilePetClinic
       KeyName: "devops-keypair"
       SecurityGroups:
         - !GetAtt SecurityGroupPetClinic.GroupId
@@ -49,7 +82,7 @@ Resources:
       MaxSize: 2
       MinSize: 1
       LaunchConfigurationName:
-        !Ref LaunchConfigurationPetClinic2
+        !Ref LaunchConfigurationPetClinic3
       VPCZoneIdentifier:
         - subnet-3da0f161
         - subnet-3304e07e
