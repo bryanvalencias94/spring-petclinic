@@ -1,5 +1,5 @@
 target/*
-bin/*
+scripts/*
 build/*
 .gradle/*
 .settings/*
