@@ -1,9 +1,9 @@
 version: 0.2
 
-#env:
-#  secrets-manager:
-#    DOCKER_AUTH_TOKEN: "GIT_HUB_CREDENTIALS:DOCKER_AUTH_TOKEN"
-#    DOCKER_USERNAME: "GIT_HUB_CREDENTIALS:DOCKER_USERNAME"
+env:
+  secrets-manager:
+    DOCKER_AUTH_TOKEN: "GIT_HUB_CREDENTIALS:DOCKER_AUTH_TOKEN"
+    DOCKER_USERNAME: "GIT_HUB_CREDENTIALS:DOCKER_USERNAME"
 
 phases:
   install:
@@ -28,13 +28,12 @@ phases:
       - chmod +x gradlew
       - ./gradlew build -x test
       - echo Build Docker image and tag it...
-      - docker login
       - docker build -t bryanvalencia94/petclinic:$CODEBUILD_BUILD_NUMBER .
   post_build:
     commands:
       - echo Post-build phase...
       - echo Push Docker image to repository...
-      - docker login -u bryanvalencia94 -p $DOCKER_AUTH_TOKEN
+#      - docker login -u DOCKER_USERNAME -p $DOCKER_AUTH_TOKEN
       - docker push bryanvalencia94/petclinic:$CODEBUILD_BUILD_NUMBER
 
 #artifacts:
