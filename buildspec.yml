@@ -37,10 +37,3 @@ phases:
       - docker login -u $DOCKER_USERNAME -p $DOCKER_AUTH_TOKEN
       - docker push bryanvalencia94/petclinic:$CODEBUILD_RESOLVED_SOURCE_VERSION
 
-outputs:
-  SOURCE_VERSION:
-    value: ${CODEBUILD_SOURCE_VERSION}
-#artifacts:
-#  files:
-#    - '**/*'
-#  name: DevOpsAppArtifacts

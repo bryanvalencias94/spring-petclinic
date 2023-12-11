@@ -42,8 +42,6 @@ Resources:
           sudo chmod +x ./install
           sudo ./install auto
           sudo service docker start
-          sudo docker pull bryanvalencia94/petclinic:1.0.0-mac-arm
-          sudo docker run -p 8080:8080 bryanvalencia94/petclinic:1.0.0-mac-arm
 
   AutoScalingGroupPetClinic:
     Type: "AWS::AutoScaling::AutoScalingGroup"
