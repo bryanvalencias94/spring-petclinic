@@ -6,6 +6,7 @@ env:
     DOCKER_USERNAME: "GIT_HUB_CREDENTIALS:DOCKER_USERNAME"
 
 phases:
+  install:
     commands:
       - echo Entered the install phase...
       - echo Check java version...
