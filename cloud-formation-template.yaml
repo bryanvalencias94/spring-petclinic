@@ -36,9 +36,11 @@ Resources:
           #!/bin/bash
           sudo yum update -y
           sudo yum install docker -y
-          sudo yum install -y aws-codebuild-agent
-          sudo systemctl start codebuild-agent
-          sudo systemctl enable codebuild-agent
+          sudo yum install -y ruby wget
+          cd /home/ec2-user
+          sudo wget https://aws-codedeploy-us-east-1.s3.us-east-1.amazonaws.com/latest/install
+          sudo chmod +x ./install
+          sudo ./install auto
           sudo service docker start
           sudo docker pull bryanvalencia94/petclinic:1.0.0-mac-arm
           sudo docker run -p 8080:8080 bryanvalencia94/petclinic:1.0.0-mac-arm
