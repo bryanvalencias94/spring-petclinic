@@ -1,6 +1,8 @@
 version: 0.2
 
 env:
+  exported-variables:
+    - CODEBUILD_SOURCE_VERSION
   secrets-manager:
     DOCKER_AUTH_TOKEN: "GIT_HUB_CREDENTIALS:DOCKER_AUTH_TOKEN"
     DOCKER_USERNAME: "GIT_HUB_CREDENTIALS:DOCKER_USERNAME"
@@ -15,7 +17,6 @@ phases:
       - java -version
       - echo Validate docker
       - docker ps
-      - docker images
   pre_build:
     commands:
       - echo Entered the pre_build phase...
@@ -26,16 +27,19 @@ phases:
       - echo Build phase...
       - echo Compile and running tests using Gradle Wrapper...
       - chmod +x gradlew
-      - ./gradlew build -x test
+      - ./gradlew build
       - echo Build Docker image and tag it...
-      - docker build -t bryanvalencia94/petclinic:$CODEBUILD_BUILD_NUMBER .
+      - docker build -t bryanvalencia94/petclinic:$CODEBUILD_SOURCE_VERSION .
   post_build:
     commands:
       - echo Post-build phase...
       - echo Push Docker image to repository...
       - docker login -u $DOCKER_USERNAME -p $DOCKER_AUTH_TOKEN
-      - docker push bryanvalencia94/petclinic:$CODEBUILD_BUILD_NUMBER
+      - docker push bryanvalencia94/petclinic:$CODEBUILD_SOURCE_VERSION
 
+outputs:
+  SOURCE_VERSION:
+    value: ${CODEBUILD_SOURCE_VERSION}
 #artifacts:
 #  files:
 #    - '**/*'
