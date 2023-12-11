@@ -22,7 +22,7 @@ Resources:
           ToPort: 80
           CidrIp: 0.0.0.0/0
 
-  LaunchConfigurationPetClinic:
+  LaunchConfigurationPetClinic2:
     Type: "AWS::AutoScaling::LaunchConfiguration"
     Properties:
       ImageId: "ami-04c97e62cb19d53f1"
@@ -49,7 +49,7 @@ Resources:
       MaxSize: 2
       MinSize: 1
       LaunchConfigurationName:
-        !Ref LaunchConfigurationPetClinic
+        !Ref LaunchConfigurationPetClinic2
       VPCZoneIdentifier:
         - subnet-3da0f161
         - subnet-3304e07e
