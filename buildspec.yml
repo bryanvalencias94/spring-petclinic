@@ -29,13 +29,13 @@ phases:
       - chmod +x gradlew
       - ./gradlew build -x test
       - echo Build Docker image and tag it...
-      - docker build -t bryanvalencia94/petclinic:$CODEBUILD_SOURCE_VERSION .
+      - docker build -t bryanvalencia94/petclinic:$SourceVariables.CommitId .
   post_build:
     commands:
       - echo Post-build phase...
       - echo Push Docker image to repository...
       - docker login -u $DOCKER_USERNAME -p $DOCKER_AUTH_TOKEN
-      - docker push bryanvalencia94/petclinic:$CODEBUILD_SOURCE_VERSION
+      - docker push bryanvalencia94/petclinic:$SourceVariables.CommitId
 
 outputs:
   SOURCE_VERSION:
