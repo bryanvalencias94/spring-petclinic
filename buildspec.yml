@@ -6,9 +6,6 @@ env:
     DOCKER_USERNAME: "GIT_HUB_CREDENTIALS:DOCKER_USERNAME"
 
 phases:
-  install:
-    runtime-versions:
-      java: corretto11
     commands:
       - echo Entered the install phase...
       - echo Check java version...
