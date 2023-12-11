@@ -36,4 +36,6 @@ phases:
       - echo Push Docker image to repository...
       - docker login -u $DOCKER_USERNAME -p $DOCKER_AUTH_TOKEN
       - docker push bryanvalencia94/petclinic:$CODEBUILD_RESOLVED_SOURCE_VERSION
+      - echo Replacing CODEBUILD_RESOLVED_SOURCE_VERSION in start_app.sh script
+      - sed -i 's/#{CODEBUILD_RESOLVED_SOURCE_VERSION}/'"$CODEBUILD_RESOLVED_SOURCE_VERSION"'/' scripts/start_app.sh
 
