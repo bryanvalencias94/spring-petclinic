@@ -76,7 +76,7 @@ Resources:
           sudo ./install auto
           sudo service docker start
 
-  AutoScalingGroupPetClinic:
+  AutoScalingGroupPetClinic2:
     Type: "AWS::AutoScaling::AutoScalingGroup"
     Properties:
       MaxSize: 2
@@ -94,7 +94,7 @@ Resources:
     Properties:
       AdjustmentType: "ChangeInCapacity"
       AutoScalingGroupName:
-        !Ref AutoScalingGroupPetClinic
+        !Ref AutoScalingGroupPetClinic2
       Cooldown: "300"
       ScalingAdjustment: "1"
 
