@@ -42,3 +42,4 @@ phases:
 artifacts:
   files:
     - 'scripts/**/*'
+    - 'appspec.yml'
