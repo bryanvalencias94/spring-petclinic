@@ -31,8 +31,11 @@ do
 
   # Check if curl command succeeded
   if [[ $? -ne 0 ]]; then
-    echo "curl command failed. Service might not be running."
-    exit 1
+    echo "curl command failed. Service might not be running. It will be retried."
+    if [ $attempt -gt $max_attempts ]; then
+      echo "Service did not become available after $max_attempts attempts. Exiting."
+      exit 1
+    fi
   fi
 
   # Print a message based on the status code
